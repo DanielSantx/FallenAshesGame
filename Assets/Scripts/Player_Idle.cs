@@ -19,7 +19,7 @@ public class Player_Idle: MonoBehaviour
     void Update()
     {
         // Si hay dialogo activo, no procesar input
-        if (DialogueManager.Instance.dialoguePanel.activeSelf)
+        if (DialogueManager.Instance != null && DialogueManager.Instance.dialoguePanel != null && DialogueManager.Instance.dialoguePanel.activeSelf)
         {
             movementInput = Vector2.zero;
             animator.SetFloat("Horizontal", 0);

@@ -1,20 +1,26 @@
 using UnityEngine;
 using System.Collections;
+
 public class NPC : MonoBehaviour
 {
-    [Header("Identificación")]
+    [Header("Identificaciï¿½n")]
     public string npcName;
-    [Header("Diálogo")]
+    [Header("Diï¿½logo")]
     [TextArea(2, 6)]
     public string[] dialogueLines;
     public bool hasConditionalDialogue = false;
     [TextArea(2, 6)]
     public string[] dialogueLinesAfter;
-    [Header("Configuración")]
+    [Header("Configuraciï¿½n")]
     public float interactionRange = 2f;
     public string npcType;
     private bool playerInRange = false;
     public GameObject interactPrompt;
+
+    void Start()
+    {
+        if (interactPrompt) interactPrompt.SetActive(false);
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -27,12 +33,13 @@ public class NPC : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
+        if (other.CompareTag("Player"))
         {
-            if (!DialogueManager.Instance.dialoguePanel.activeSelf)
-                Interact();
+            playerInRange = true;
+            if (interactPrompt) interactPrompt.SetActive(true);
         }
     }
+
     IEnumerator BlockInputBriefly()
     {
         yield return new WaitForSecondsRealtime(0.2f);
@@ -47,18 +54,36 @@ public class NPC : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (playerInRange && interactPrompt && interactPrompt.activeSelf)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(
+                transform.position + new Vector3(0, 1f, 0)
+            );
+            interactPrompt.transform.position = screenPos;
+        }
+
+        if (playerInRange && !DialogueManager.justEnded && Input.GetKeyDown(KeyCode.E))
+        {
+            if (DialogueManager.Instance == null || DialogueManager.Instance.dialoguePanel == null || !DialogueManager.Instance.dialoguePanel.activeSelf)
+            {
+                Interact();
+                StartCoroutine(BlockInputBriefly());
+            }
+        }
+    }
+
     void Interact()
     {
         string[] linesToShow = dialogueLines;
         if (hasConditionalDialogue && GameState.Instance.hasSpokenToKing)
             linesToShow = dialogueLinesAfter;
-
         System.Action callback = null;
         if (npcType == "king")
-            callback = () => GameState.Instance.hasSpokenToKing = true;
+            callback = () => { GameState.Instance.hasSpokenToKing = true; GameState.Instance.SaveGame(); };
         else if (npcType == "mage")
-            callback = () => GameState.Instance.hasSpokenToMage = true;
-
+            callback = () => { GameState.Instance.hasSpokenToMage = true; GameState.Instance.SaveGame(); };
         DialogueManager.Instance.StartDialogue(npcName, linesToShow, callback);
     }
 

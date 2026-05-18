@@ -6,6 +6,8 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
+    public static bool justEnded = false;
+
     [Header("UI References")]
     public GameObject dialoguePanel;
     public TMP_Text npcNameText;
@@ -21,9 +23,13 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else Destroy(gameObject);
-        dialoguePanel.SetActive(false);
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
     }
 
     public void StartDialogue(string npcName, string[] lines, System.Action onComplete = null)
@@ -69,7 +75,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (!dialoguePanel.activeSelf || inputBlocked) return;
+        if (dialoguePanel == null || !dialoguePanel.activeSelf || inputBlocked) return;
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -94,8 +100,14 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        dialoguePanel.SetActive(false);
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
         Time.timeScale = 1f;
+        justEnded = true;
         onFinish?.Invoke();
+    }
+
+    void LateUpdate()
+    {
+        justEnded = false;
     }
 }
