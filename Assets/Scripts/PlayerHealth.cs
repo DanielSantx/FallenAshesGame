@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -13,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public Sprite fullHeart;
     public Sprite halfHeart;
     public Sprite emptyHeart;
+    public GameObject deathScreen;
 
     private Image[] hearts;
 
@@ -72,6 +74,14 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player died");
+        if (deathScreen != null)
+            deathScreen.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void Respawn()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Castle_MainScene");
     }
 }

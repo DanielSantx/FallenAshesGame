@@ -5,7 +5,6 @@ using System.Collections;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
-
     public static bool justEnded = false;
 
     [Header("UI References")]
@@ -23,13 +22,9 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        if (Instance == null) Instance = this;
         else Destroy(gameObject);
-        if (dialoguePanel != null) dialoguePanel.SetActive(false);
+        dialoguePanel.SetActive(false);
     }
 
     public void StartDialogue(string npcName, string[] lines, System.Action onComplete = null)
@@ -75,7 +70,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (dialoguePanel == null || !dialoguePanel.activeSelf || inputBlocked) return;
+        if (!dialoguePanel.activeSelf || inputBlocked) return;
 
         if (Input.GetKeyDown(KeyCode.E))
         {

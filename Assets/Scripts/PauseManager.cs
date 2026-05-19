@@ -38,7 +38,7 @@ public class PauseManager : MonoBehaviour
         // ESC no funciona durante dialogos
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (DialogueManager.Instance != null && DialogueManager.Instance.dialoguePanel != null && DialogueManager.Instance.dialoguePanel.activeSelf) return;
+            if (DialogueManager.Instance.dialoguePanel.activeSelf) return;
 
             if (isPaused) ResumeGame();
             else PauseGame();

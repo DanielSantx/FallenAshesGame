@@ -16,7 +16,6 @@ public class GameState : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             LoadGame();
-            SaveGame();
         }
         else
         {
@@ -55,7 +54,5 @@ public class GameState : MonoBehaviour
     public void DeleteSave()
     {
         PlayerPrefs.DeleteAll();
-        hasSpokenToKing = false;
-        hasSpokenToMage = false;
     }
 }

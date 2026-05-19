@@ -81,9 +81,9 @@ public class NPC : MonoBehaviour
             linesToShow = dialogueLinesAfter;
         System.Action callback = null;
         if (npcType == "king")
-            callback = () => { GameState.Instance.hasSpokenToKing = true; GameState.Instance.SaveGame(); };
+            callback = () => GameState.Instance.hasSpokenToKing = true;
         else if (npcType == "mage")
-            callback = () => { GameState.Instance.hasSpokenToMage = true; GameState.Instance.SaveGame(); };
+            callback = () => GameState.Instance.hasSpokenToMage = true;
         DialogueManager.Instance.StartDialogue(npcName, linesToShow, callback);
     }
 
