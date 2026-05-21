@@ -8,6 +8,9 @@ public class GameState : MonoBehaviour
     public bool hasSpokenToKing = false;
     public bool hasSpokenToMage = false;
 
+    [Header("Runtime")]
+    public bool playIntro = false;
+
     private void Awake()
     {
         if (Instance == null)

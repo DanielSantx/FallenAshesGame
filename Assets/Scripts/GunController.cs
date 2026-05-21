@@ -7,6 +7,7 @@ public class GunController : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 0.25f;
     public float bulletSpeed = 12f;
+    public AudioClip shootSound;
 
     public float orbitRadius = 0.6f;
 
@@ -45,5 +46,7 @@ public class GunController : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.linearVelocity = direction * bulletSpeed;
+        if (AudioManager.Instance != null && shootSound != null)
+            AudioManager.Instance.PlaySFX(shootSound);
     }
 }

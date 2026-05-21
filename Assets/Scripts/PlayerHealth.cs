@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour
     public int maxHearts = 5;
     private float currentHealth;
 
+    [Header("Sonido")]
+    public AudioClip damageTakenSound;
+
     [Header("UI Corazones")]
     public GameObject heartContainer;
     public GameObject heartPrefab;
@@ -42,6 +45,8 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0) return;
 
         currentHealth -= damage;
+        if (AudioManager.Instance != null && damageTakenSound != null)
+            AudioManager.Instance.PlaySFX(damageTakenSound);
         if (currentHealth <= 0)
         {
             currentHealth = 0;

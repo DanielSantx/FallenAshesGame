@@ -411,9 +411,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 1, g: 0.84313726, b: 0.84313726, a: 1}
-    m_PressedColor: {r: 1, g: 0.5896226, b: 0.5896226, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 0}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -681,9 +681,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 1, g: 0.84313726, b: 0.84313726, a: 1}
-    m_PressedColor: {r: 1, g: 0.5896226, b: 0.5896226, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 0}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1378,6 +1378,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638296411}
   m_CullTransparentMesh: 1
+--- !u!1 &641563855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 641563857}
+  - component: {fileID: 641563856}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &641563856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641563855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2638087e0ad4e314b9c2d1cf3ae04167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  musicVolume: 0.5
+  sfxVolume: 0.5
+  menuMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
+  castleMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
+  dungeonMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
+  menuClick: {fileID: 8300000, guid: 09f9329a14d5d794ba66172b13165e16, type: 3}
+  footsteps: {fileID: 8300000, guid: 78755a1b61e117b40984b05c6c0ea158, type: 3}
+  textTyping: {fileID: 8300000, guid: bb2e44ea364bf21479533912352c3c75, type: 3}
+  shoot: {fileID: 8300000, guid: 73c54261c511a2a4d9cbb0272c110b4f, type: 3}
+  damageTaken: {fileID: 8300000, guid: d82fa479ea60b984496cc47c33475eee, type: 3}
+  enemyHurt: {fileID: 8300000, guid: d82fa479ea60b984496cc47c33475eee, type: 3}
+  chestOpen: {fileID: 8300000, guid: 4a0ccbb28e361c64e96107d09c6bfbf7, type: 3}
+  doorOpen: {fileID: 8300000, guid: ac1a7ec9b01af6d40b21674858aa20cf, type: 3}
+--- !u!4 &641563857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641563855}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.06, y: 22.83941, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &671396818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,6 +1787,8 @@ MonoBehaviour:
   exitButton: {fileID: 261401938}
   colorActivo: {r: 1, g: 1, b: 1, a: 1}
   colorDesactivado: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+  menuClickSound: {fileID: 8300000, guid: 09f9329a14d5d794ba66172b13165e16, type: 3}
+  optionsOpenSound: {fileID: 8300000, guid: 09f9329a14d5d794ba66172b13165e16, type: 3}
   optionsPanel: {fileID: 201339383}
   musicVolumeSlider: {fileID: 1717962183}
   sfxVolumeSlider: {fileID: 1017789318}
@@ -2505,9 +2564,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 1, g: 0.84313726, b: 0.84313726, a: 1}
-    m_PressedColor: {r: 1, g: 0.5896226, b: 0.5896226, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 0}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3347,9 +3406,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 1, g: 0.84313726, b: 0.84313726, a: 1}
-    m_PressedColor: {r: 1, g: 0.5896226, b: 0.5896226, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 0}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4854,3 +4913,4 @@ SceneRoots:
   - {fileID: 1255553383}
   - {fileID: 729814984}
   - {fileID: 805811493}
+  - {fileID: 641563857}

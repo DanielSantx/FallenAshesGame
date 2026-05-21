@@ -4573,6 +4573,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d74469f1982a1e4aaba5f8c5d318b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idle_Character
+  footstepSound: {fileID: 8300000, guid: 78755a1b61e117b40984b05c6c0ea158, type: 3}
+  footstepInterval: 0.4
 --- !u!95 &203834068
 Animator:
   serializedVersion: 7
@@ -5620,6 +5622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83895e24da777f41a5d226af3405a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  typingSound: {fileID: 8300000, guid: bb2e44ea364bf21479533912352c3c75, type: 3}
   dialoguePanel: {fileID: 74801395}
   npcNameText: {fileID: 325586331}
   dialogueText: {fileID: 1856269382}
@@ -13616,6 +13619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   hasSpokenToKing: 0
   hasSpokenToMage: 0
+  playIntro: 0
 --- !u!4 &1157638127
 Transform:
   m_ObjectHideFlags: 0
@@ -15178,6 +15182,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1571171450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1571171452}
+  - component: {fileID: 1571171451}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1571171451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571171450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2638087e0ad4e314b9c2d1cf3ae04167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  musicVolume: 0.5
+  sfxVolume: 0.5
+  menuMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
+  castleMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
+  dungeonMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
+  menuClick: {fileID: 8300000, guid: 09f9329a14d5d794ba66172b13165e16, type: 3}
+  footsteps: {fileID: 8300000, guid: 78755a1b61e117b40984b05c6c0ea158, type: 3}
+  textTyping: {fileID: 8300000, guid: bb2e44ea364bf21479533912352c3c75, type: 3}
+  shoot: {fileID: 8300000, guid: 73c54261c511a2a4d9cbb0272c110b4f, type: 3}
+  damageTaken: {fileID: 8300000, guid: d82fa479ea60b984496cc47c33475eee, type: 3}
+  enemyHurt: {fileID: 8300000, guid: d82fa479ea60b984496cc47c33475eee, type: 3}
+  chestOpen: {fileID: 8300000, guid: 4a0ccbb28e361c64e96107d09c6bfbf7, type: 3}
+  doorOpen: {fileID: 8300000, guid: ac1a7ec9b01af6d40b21674858aa20cf, type: 3}
+--- !u!4 &1571171452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571171450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.06, y: 22.83941, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1600472292
 GameObject:
   m_ObjectHideFlags: 0
@@ -15604,6 +15665,82 @@ Sprite:
   m_Bones: []
   m_ScriptableObjects: []
   m_SpriteID: 
+--- !u!1 &1688054138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1688054140}
+  - component: {fileID: 1688054139}
+  m_Layer: 0
+  m_Name: CinematicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1688054139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688054138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3810033eac5213d488823cf60577648c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CinematicManager
+  mageTransform: {fileID: 366150764}
+  playerTransform: {fileID: 203834072}
+  mageOffsetFromPlayer: {x: 1.5, y: 0, z: 0}
+  fadeDuration: 0.5
+  moveSpeed: 2
+  introDialogueLines:
+  - Al fin... Has despertado...
+  - "Esperaba que no lo hicieras. Hubiera sido m\xE1s misericordioso."
+  - "Abre los ojos. Respira. Siente el peso de lo que te rodea. Este olor a podredumbre
+    y ceniza\u2026 ya no desaparece. Lleva tanto tiempo aqu\xED que creo que el aire
+    mismo se ha rendido."
+  - "Torgmundhier ha ca\xEDdo. No de golpe, no con una gran batalla \xE9pica que
+    merezca ser cantada. Sino poco a poco. Como todo lo que realmente muere."
+  - "Primero las aldeas. Luego los caminos. Luego la gente dej\xF3 de mirar al horizonte
+    porque lo que ven\xEDa del horizonte ya no era bueno."
+  - "La corrupci\xF3n no conquista. Pudre. Se filtra en la tierra, en el agua, en
+    la sangre\u2026 en los pensamientos. He visto hombres buenos convertirse en algo
+    que no tiene nombre en ning\xFAn idioma que yo conozca."
+  - "\xBFY la muerte? No te f\xEDes de ella. Aqu\xED la muerte no es un final. Es
+    apenas una puerta. Y no siempre se sabe bien de qu\xE9 lado quedas cuando la
+    cruzas."
+  - "Algunos seguimos en pie. No porque seamos m\xE1s fuertes. Sino porque a\xFAn
+    no hemos encontrado nada mejor que hacer que resistir."
+  - "T\xFA eres uno de los elegidos. O eso dicen.... He visto morir a los otros seis,
+    as\xED que perdonar\xE1s si no celebro demasiado tu llegada."
+  - "Si este reino ha de renacer\u2026 ser\xE1 sobre monta\xF1as de huesos. Sobre
+    decisiones que no tienen respuesta correcta. Sobre todo lo que est\xE9s dispuesto
+    a perder."
+  - "Habla con el Rey. \xC9l te explicar\xE1 lo que se espera de ti."
+  - "\u2026Aunque si fuera t\xFA, me tomar\xEDa un momento antes. Para recordar c\xF3mo
+    era sentirse esperanzado. Porque despu\xE9s de hablar con \xE9l, puede que cueste
+    m\xE1s."
+--- !u!4 &1688054140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688054138}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 392.6507, y: 142.75021, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1709518603
 GameObject:
   m_ObjectHideFlags: 0
@@ -17059,3 +17196,5 @@ SceneRoots:
   - {fileID: 1843401884}
   - {fileID: 659047934}
   - {fileID: 247569682}
+  - {fileID: 1688054140}
+  - {fileID: 1571171452}

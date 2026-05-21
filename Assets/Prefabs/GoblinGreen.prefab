@@ -136,6 +136,8 @@ MonoBehaviour:
   moveSpeed: 2
   attackDamage: 0.5
   attackCooldown: 1
+  hurtSound: {fileID: 8300000, guid: d82fa479ea60b984496cc47c33475eee, type: 3}
+  deathSound: {fileID: 0}
   player: {fileID: 0}
 --- !u!50 &8655346370741434652
 Rigidbody2D:
@@ -202,7 +204,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1.125, y: 1.0625}
     newSize: {x: 1.125, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

@@ -16,6 +16,9 @@ public class Enemy : MonoBehaviour
     public float attackCooldown = 1f;
     private float nextAttackTime = 0f;
 
+    [Header("Sonido")]
+    public AudioClip hurtSound;
+
     [Header("Referencias")]
     public Transform player;
     private Rigidbody2D rb;
@@ -90,6 +93,8 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        if (AudioManager.Instance != null && hurtSound != null)
+            AudioManager.Instance.PlaySFX(hurtSound);
         if (currentHealth <= 0)
             Die();
         else if (animator != null)

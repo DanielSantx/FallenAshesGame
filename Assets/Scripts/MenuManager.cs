@@ -16,6 +16,10 @@ public class MenuManager : MonoBehaviour
     public Color colorActivo = Color.white;
     public Color colorDesactivado = new Color(0.4f, 0.4f, 0.4f, 1f);
 
+    [Header("Sonidos")]
+    public AudioClip menuClickSound;
+    public AudioClip optionsOpenSound;
+
     [Header("Panel de Opciones")]
     public GameObject optionsPanel;
     public Slider musicVolumeSlider;
@@ -37,6 +41,11 @@ public class MenuManager : MonoBehaviour
 
         SetupResolutions();
         LoadSettings();
+
+        if (musicVolumeSlider) musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+        if (sfxVolumeSlider)   sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        if (resolutionDropdown) resolutionDropdown.onValueChanged.AddListener(SetResolution);
+        if (fullscreenToggle)   fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
     }
 
     void SetupResolutions()
@@ -63,36 +72,49 @@ public class MenuManager : MonoBehaviour
     void LoadSettings()
     {
         if (musicVolumeSlider)
-            musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+            musicVolumeSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("MusicVolume", 0.5f));
         if (sfxVolumeSlider)
-            sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
+            sfxVolumeSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("SFXVolume", 0.5f));
         if (fullscreenToggle)
-            fullscreenToggle.isOn = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+            fullscreenToggle.SetIsOnWithoutNotify(PlayerPrefs.GetInt("Fullscreen", 1) == 1);
     }
+    void PlayClick()
+    {
+        if (AudioManager.Instance != null && menuClickSound != null)
+            AudioManager.Instance.PlaySFX(menuClickSound);
+    }
+
     public void OnContinuar()
     {
+        PlayClick();
         SceneManager.LoadScene("Castle_MainScene");
     }
     public void OnNuevaPartida()
     {
+        PlayClick();
         if (GameState.Instance != null)
             GameState.Instance.DeleteSave();
         else
             PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene("Castle_MainScene");
+        SceneManager.LoadScene("LoreScene");
     }
     public void OnOpciones()
     {
+        PlayClick();
+        if (optionsOpenSound != null && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(optionsOpenSound);
         if (optionsPanel) optionsPanel.SetActive(true);
     }
     public void OnBackFromOptions()
     {
+        PlayClick();
         SaveSettings();
         ApplySettings();
         if (optionsPanel) optionsPanel.SetActive(false);
     }
     public void OnSalir()
     {
+        PlayClick();
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #else
@@ -102,10 +124,14 @@ public class MenuManager : MonoBehaviour
     public void SetMusicVolume(float value)
     {
         PlayerPrefs.SetFloat("MusicVolume", value);
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetMusicVolume(value);
     }
     public void SetSFXVolume(float value)
     {
         PlayerPrefs.SetFloat("SFXVolume", value);
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetSFXVolume(value);
     }
     public void SetFullscreen(bool isFullscreen)
     {
@@ -131,7 +157,6 @@ public class MenuManager : MonoBehaviour
     }
     void ApplySettings()
     {
-        AudioListener.volume = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
         Screen.fullScreen = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
     }
 }

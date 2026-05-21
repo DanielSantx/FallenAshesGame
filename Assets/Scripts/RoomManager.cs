@@ -6,6 +6,7 @@ public class RoomManager : MonoBehaviour
 {
     [Header("Puertas")]
     public GameObject[] doors;
+    public AudioClip doorOpenSound;
 
     [Header("Oleadas")]
     public Wave[] waves;
@@ -76,6 +77,8 @@ public class RoomManager : MonoBehaviour
 
     void UnlockDoors()
     {
+        if (AudioManager.Instance != null && doorOpenSound != null)
+            AudioManager.Instance.PlaySFX(doorOpenSound);
         foreach (GameObject door in doors)
             if (door != null) door.SetActive(false);
     }

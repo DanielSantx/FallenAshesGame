@@ -8,8 +8,8 @@ public class Portal : MonoBehaviour
 
         if (!GameState.Instance.hasSpokenToKing)
         {
-            // los guardias ya le habrán dicho que no puede pasar,
-            // aquí simplemente no hacemos nada (el guardia tiene su diálogo)
+            // los guardias ya le habrï¿½n dicho que no puede pasar,
+            // aquï¿½ simplemente no hacemos nada (el guardia tiene su diï¿½logo)
             return;
         }
 

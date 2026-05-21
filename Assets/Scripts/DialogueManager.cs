@@ -7,6 +7,9 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
     public static bool justEnded = false;
 
+    [Header("Sonido")]
+    public AudioClip typingSound;
+
     [Header("UI References")]
     public GameObject dialoguePanel;
     public TMP_Text npcNameText;
@@ -62,6 +65,8 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in line)
         {
             dialogueText.text += c;
+            if (AudioManager.Instance != null && typingSound != null)
+                AudioManager.Instance.PlaySFX(typingSound);
             yield return new WaitForSecondsRealtime(0.03f);
         }
         isTyping = false;

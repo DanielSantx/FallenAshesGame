@@ -31,6 +31,11 @@ public class PauseManager : MonoBehaviour
         pausePanel.SetActive(false);
         SetupResolutions();
         LoadSettings();
+
+        if (musicVolumeSlider) musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+        if (sfxVolumeSlider)   sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        if (resolutionDropdown) resolutionDropdown.onValueChanged.AddListener(SetResolution);
+        if (fullscreenToggle)   fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
     }
 
     void Update()
@@ -38,7 +43,7 @@ public class PauseManager : MonoBehaviour
         // ESC no funciona durante dialogos
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (DialogueManager.Instance.dialoguePanel.activeSelf) return;
+            if (DialogueManager.Instance != null && DialogueManager.Instance.dialoguePanel != null && DialogueManager.Instance.dialoguePanel.activeSelf) return;
 
             if (isPaused) ResumeGame();
             else PauseGame();
@@ -90,11 +95,11 @@ public class PauseManager : MonoBehaviour
     void LoadSettings()
     {
         if (musicVolumeSlider)
-            musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+            musicVolumeSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("MusicVolume", 0.5f));
         if (sfxVolumeSlider)
-            sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
+            sfxVolumeSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("SFXVolume", 0.5f));
         if (fullscreenToggle)
-            fullscreenToggle.isOn = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+            fullscreenToggle.SetIsOnWithoutNotify(PlayerPrefs.GetInt("Fullscreen", 1) == 1);
     }
 
     void SaveSettings()
@@ -110,7 +115,34 @@ public class PauseManager : MonoBehaviour
 
     void ApplySettings()
     {
-        AudioListener.volume = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
         Screen.fullScreen = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        PlayerPrefs.SetFloat("MusicVolume", value);
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetMusicVolume(value);
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        PlayerPrefs.SetFloat("SFXVolume", value);
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetSFXVolume(value);
+    }
+
+    public void SetFullscreen(bool isFullscreen)
+    {
+        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+    }
+
+    public void SetResolution(int index)
+    {
+        if (resolutions != null && index < resolutions.Length)
+        {
+            Resolution res = resolutions[index];
+            Screen.SetResolution(res.width, res.height, Screen.fullScreen);
+        }
     }
 }
