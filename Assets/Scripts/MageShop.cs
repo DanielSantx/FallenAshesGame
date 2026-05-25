@@ -143,7 +143,7 @@ public class MageShop : MonoBehaviour
 
     void RefreshUI()
     {
-        if (GameState.Instance == null) return;
+        GameState.EnsureInstance();
         GameState gs = GameState.Instance;
 
         if (soulsText != null)
@@ -176,7 +176,7 @@ public class MageShop : MonoBehaviour
 
     void TryUpgrade(int index)
     {
-        if (GameState.Instance == null) return;
+        GameState.EnsureInstance();
         GameState gs = GameState.Instance;
 
         int lvl = 0;

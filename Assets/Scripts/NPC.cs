@@ -88,6 +88,7 @@ public class NPC : MonoBehaviour
     // Inicia el diálogo según el estado de la narrativa
     void Interact()
     {
+        GameState.EnsureInstance();
         string[] linesToShow = dialogueLines;
         // Si tiene diálogo condicional y ya habló con el rey, usa el alternativo
         if (hasConditionalDialogue && GameState.Instance.hasSpokenToKing)

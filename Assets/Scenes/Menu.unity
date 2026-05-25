@@ -1409,9 +1409,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   musicVolume: 0.5
   sfxVolume: 0.5
-  menuMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
-  castleMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
-  dungeonMusic: {fileID: 8300000, guid: f4194ec2888d6364399d64c4a1edeb38, type: 3}
+  menuMusic: {fileID: 8300000, guid: bb4e5c8ec42fcd84c8d5998792b60648, type: 3}
+  castleMusic: {fileID: 8300000, guid: 56607afca7f885f4d9e0b2cef4de4d0c, type: 3}
+  dungeonMusic: {fileID: 8300000, guid: 56607afca7f885f4d9e0b2cef4de4d0c, type: 3}
   menuClick: {fileID: 8300000, guid: 09f9329a14d5d794ba66172b13165e16, type: 3}
   footsteps: {fileID: 8300000, guid: 78755a1b61e117b40984b05c6c0ea158, type: 3}
   textTyping: {fileID: 8300000, guid: bb2e44ea364bf21479533912352c3c75, type: 3}

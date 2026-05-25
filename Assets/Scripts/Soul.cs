@@ -33,12 +33,9 @@ public class Soul : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        // Suma las almas al GameState, guarda y se destruye
-        if (GameState.Instance != null)
-        {
-            GameState.Instance.AddSouls(value);
-            GameState.Instance.SaveGame();
-        }
+        GameState.EnsureInstance();
+        GameState.Instance.AddSouls(value);
+        GameState.Instance.SaveGame();
         Destroy(gameObject);
     }
 }

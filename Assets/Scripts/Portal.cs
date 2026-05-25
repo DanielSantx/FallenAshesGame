@@ -11,15 +11,11 @@ public class Portal : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+        if (GameState.Instance == null) return;
 
-        // Si no ha hablado con el rey, no pasa nada
-        // (los guardias ya le negarán el paso con su diálogo)
         if (!GameState.Instance.hasSpokenToKing)
-        {
             return;
-        }
 
-        // Carga la escena de la mazmorra
         UnityEngine.SceneManagement.SceneManager.LoadScene("DungeonScene");
     }
 }

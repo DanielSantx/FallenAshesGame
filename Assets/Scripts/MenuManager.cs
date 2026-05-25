@@ -41,8 +41,19 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        // El botón Continuar solo está activo si hay partida guardada
+        GameState.EnsureInstance();
+        // El botón Continuar solo está activo si hay partida guardada con datos reales
         bool haySave = GameState.HasSaveGame();
+        if (haySave && GameState.Instance != null)
+        {
+            haySave = GameState.Instance.souls > 0 ||
+                      GameState.Instance.hasSpokenToKing ||
+                      GameState.Instance.hasSpokenToMage ||
+                      GameState.Instance.damageLevel > 0 ||
+                      GameState.Instance.fireRateLevel > 0 ||
+                      GameState.Instance.speedLevel > 0 ||
+                      GameState.Instance.maxHpLevel > 0;
+        }
         continueButton.interactable = haySave;
         TMP_Text continueTxt = continueButton.GetComponentInChildren<TMP_Text>();
         if (continueTxt) continueTxt.color = haySave ? colorActivo : colorDesactivado;

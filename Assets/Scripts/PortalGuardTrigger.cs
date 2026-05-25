@@ -49,8 +49,8 @@ public class PortalGuardTrigger : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+        if (GameState.Instance == null) return;
 
-        // Si NO ha hablado con el rey → guardias alerta + muro
         if (!GameState.Instance.hasSpokenToKing)
         {
             SetGuardsAlert();

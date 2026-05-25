@@ -5,11 +5,24 @@ using UnityEngine;
 // historia (banderas narrativas) y las mejoras permanentes
 // (almas, niveles de mejora) mediante PlayerPrefs.
 // Al iniciar partida nueva se borra todo; al continuar se carga.
+// Si no existe en la escena, se crea automáticamente la primera
+// vez que se accede a Instance.
 // ============================================================
 public class GameState : MonoBehaviour
 {
     // Instancia única del singleton (DontDestroyOnLoad)
     public static GameState Instance;
+
+    // Crea la instancia singleton si aún no existe
+    public static void EnsureInstance()
+    {
+        if (Instance == null)
+        {
+            GameObject go = new GameObject("GameState");
+            DontDestroyOnLoad(go);
+            go.AddComponent<GameState>();
+        }
+    }
 
     // Banderas que indican con qué NPCs ha hablado el jugador
     [Header("Story Progress")]
