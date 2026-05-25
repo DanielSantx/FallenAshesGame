@@ -137,7 +137,8 @@ MonoBehaviour:
   attackDamage: 0.5
   attackCooldown: 1
   hurtSound: {fileID: 8300000, guid: d82fa479ea60b984496cc47c33475eee, type: 3}
-  deathSound: {fileID: 0}
+  SoulPrefab: {fileID: 555840765304676174, guid: 29d6011612861fd41b8adf70f17e140e, type: 3}
+  soulDropAmount: 5
   player: {fileID: 0}
 --- !u!50 &8655346370741434652
 Rigidbody2D:

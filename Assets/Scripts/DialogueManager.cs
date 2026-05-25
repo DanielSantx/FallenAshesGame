@@ -2,26 +2,32 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
+// ============================================================
+// DialogueManager: Singleton que gestiona los diálogos con NPCs.
+// Muestra un panel con el nombre del NPC, el texto con efecto
+// de máquina de escribir, y un prompt para continuar. Congela
+// el tiempo (timeScale = 0) mientras el diálogo está abierto.
+// ============================================================
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
-    public static bool justEnded = false;
+    public static bool justEnded = false; // Flag para evitar re-trigger en el mismo frame
 
     [Header("Sonido")]
-    public AudioClip typingSound;
+    public AudioClip typingSound; // Sonido que se reproduce por cada carácter
 
     [Header("UI References")]
-    public GameObject dialoguePanel;
-    public TMP_Text npcNameText;
-    public TMP_Text dialogueText;
-    public GameObject continuePrompt;
+    public GameObject dialoguePanel;     // Panel del diálogo (con todos los hijos)
+    public TMP_Text npcNameText;          // Nombre del NPC hablando
+    public TMP_Text dialogueText;         // Texto del diálogo
+    public GameObject continuePrompt;     // Indicador "pulsa E para continuar"
 
-    private string[] currentLines;
-    private int currentIndex;
-    private bool isTyping;
-    private bool inputBlocked = false;
-    private System.Action onFinish;
-    private Coroutine typingCoroutine;
+    private string[] currentLines;        // Líneas del diálogo actual
+    private int currentIndex;             // Índice de la línea actual
+    private bool isTyping;                // Si está escribiendo (efecto máquina)
+    private bool inputBlocked = false;    // Bloqueo inicial para evitar skip instantáneo
+    private System.Action onFinish;       // Callback al terminar el diálogo
+    private Coroutine typingCoroutine;    // Referencia a la corrutina de typing
 
     void Awake()
     {
@@ -30,6 +36,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
     }
 
+    // Inicia un diálogo: muestra el panel, congela el tiempo y escribe línea a línea
     public void StartDialogue(string npcName, string[] lines, System.Action onComplete = null)
     {
         currentLines = lines;
@@ -37,27 +44,29 @@ public class DialogueManager : MonoBehaviour
         onFinish = onComplete;
         npcNameText.text = npcName;
         dialoguePanel.SetActive(true);
-        Time.timeScale = 0f;
+        Time.timeScale = 0f;          // Congela el juego
         inputBlocked = true;
         StartCoroutine(UnblockInput());
         ShowLine();
     }
 
+    // Pequeña pausa para evitar que la E del jugador avance el diálogo
     IEnumerator UnblockInput()
     {
         yield return new WaitForSecondsRealtime(0.2f);
         inputBlocked = false;
     }
 
+    // Muestra la línea actual con efecto de typing
     void ShowLine()
     {
         continuePrompt.SetActive(false);
-        // Solo para el typing, no StopAllCoroutines
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
         typingCoroutine = StartCoroutine(TypeLine(currentLines[currentIndex]));
     }
 
+    // Escribe el texto carácter por carácter con sonido
     IEnumerator TypeLine(string line)
     {
         isTyping = true;
@@ -70,7 +79,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.03f);
         }
         isTyping = false;
-        continuePrompt.SetActive(true);
+        continuePrompt.SetActive(true); // Muestra "pulsa E para continuar"
     }
 
     void Update()
@@ -79,6 +88,7 @@ public class DialogueManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            // Si está escribiendo, completa la línea al instante
             if (isTyping)
             {
                 if (typingCoroutine != null)
@@ -89,6 +99,7 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
+                // Avanza a la siguiente línea o termina el diálogo
                 currentIndex++;
                 if (currentIndex < currentLines.Length)
                     ShowLine();
@@ -98,6 +109,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // Cierra el panel, reanuda el tiempo y ejecuta el callback
     void EndDialogue()
     {
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
@@ -106,6 +118,7 @@ public class DialogueManager : MonoBehaviour
         onFinish?.Invoke();
     }
 
+    // Resetea el flag justEnded al final del frame
     void LateUpdate()
     {
         justEnded = false;

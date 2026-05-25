@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 548608778569645904, guid: cb518181e3fa8e74c8ededc8af4ffef5, type: 3}
+      propertyPath: soulDropAmount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3727802689711584335, guid: cb518181e3fa8e74c8ededc8af4ffef5, type: 3}
       propertyPath: m_Name
-      value: GoblinRed Variant
+      value: GoblinRed
       objectReference: {fileID: 0}
     - target: {fileID: 5975618386319203517, guid: cb518181e3fa8e74c8ededc8af4ffef5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51,6 +55,14 @@ PrefabInstance:
     - target: {fileID: 5975618386319203517, guid: cb518181e3fa8e74c8ededc8af4ffef5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140078354623456034, guid: cb518181e3fa8e74c8ededc8af4ffef5, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140078354623456034, guid: cb518181e3fa8e74c8ededc8af4ffef5, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.125
       objectReference: {fileID: 0}
     - target: {fileID: 8039496757580235343, guid: cb518181e3fa8e74c8ededc8af4ffef5, type: 3}
       propertyPath: m_Controller

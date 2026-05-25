@@ -1,5 +1,11 @@
 using UnityEngine;
 
+// ============================================================
+// EnemyHealth: Script alternativo / legacy para gestión de vida
+// de enemigos (sin animaciones ni eventos). Actualmente no se
+// usa en el juego: la vida de los enemigos se gestiona desde
+// Enemy.cs. Se mantiene por compatibilidad.
+// ============================================================
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 3;
@@ -10,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    // Aplica daño y destruye el objeto si la vida llega a 0
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;

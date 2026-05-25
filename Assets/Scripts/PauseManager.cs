@@ -4,13 +4,19 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+// ============================================================
+// PauseManager: Gestiona la pausa del juego (ESC) y el panel
+// de opciones tanto en el castillo como en la mazmorra.
+// Congela el tiempo al pausar y lo reanuda al salir.
+// ============================================================
 public class PauseManager : MonoBehaviour
 {
     public static PauseManager Instance;
 
     [Header("Panel de Pausa")]
-    public GameObject pausePanel;
+    public GameObject pausePanel; // Panel que se muestra al pausar
 
+    // Controles de opciones (réplica del menú principal)
     [Header("Opciones")]
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
@@ -32,15 +38,16 @@ public class PauseManager : MonoBehaviour
         SetupResolutions();
         LoadSettings();
 
-        if (musicVolumeSlider) musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
-        if (sfxVolumeSlider)   sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        // Conecta los controles programáticamente (rango 0-1)
+        if (musicVolumeSlider) { musicVolumeSlider.minValue = 0f; musicVolumeSlider.maxValue = 1f; musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume); }
+        if (sfxVolumeSlider)   { sfxVolumeSlider.minValue = 0f;   sfxVolumeSlider.maxValue = 1f;   sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume); }
         if (resolutionDropdown) resolutionDropdown.onValueChanged.AddListener(SetResolution);
         if (fullscreenToggle)   fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
     }
 
     void Update()
     {
-        // ESC no funciona durante dialogos
+        // ESC abre/cierra la pausa, salvo que haya un diálogo activo
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (DialogueManager.Instance != null && DialogueManager.Instance.dialoguePanel != null && DialogueManager.Instance.dialoguePanel.activeSelf) return;
@@ -50,6 +57,7 @@ public class PauseManager : MonoBehaviour
         }
     }
 
+    // Activa la pausa: congela el tiempo y muestra el panel
     public void PauseGame()
     {
         isPaused = true;
@@ -57,6 +65,7 @@ public class PauseManager : MonoBehaviour
         pausePanel.SetActive(true);
     }
 
+    // Reanuda: restaura el tiempo, guarda opciones y cierra el panel
     public void ResumeGame()
     {
         isPaused = false;
@@ -66,11 +75,16 @@ public class PauseManager : MonoBehaviour
         pausePanel.SetActive(false);
     }
 
+    // Vuelve al menú principal desde la pausa
     public void OnVolverAlMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
+
+    // ==========================================
+    // Opciones (idéntico a MenuManager)
+    // ==========================================
 
     void SetupResolutions()
     {

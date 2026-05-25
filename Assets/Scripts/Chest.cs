@@ -1,15 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
+// ============================================================
+// Chest: Cofre interactivo. Al pulsar [E] cerca, cambia su
+// sprite a abierto, cura al jugador al máximo, reproduce un
+// sonido y muestra un efecto visual (+1UP) que flota hacia
+// arriba y se desvanece.
+// ============================================================
 public class Chest : MonoBehaviour
 {
-    public Sprite closedSprite;
-    public Sprite openSprite;
-    public GameObject interactPrompt;
-    public AudioClip openSound;
-    public Sprite healSprite;
-    public float healFloatSpeed = 1.5f;
-    public float healLifetime = 1f;
+    public Sprite closedSprite;   // Sprite del cofre cerrado
+    public Sprite openSprite;     // Sprite del cofre abierto
+    public GameObject interactPrompt; // Indicador [E] sobre el cofre
+    public AudioClip openSound;   // Sonido al abrir
+
+    public Sprite healSprite;            // Sprite del efecto de curación (+1UP)
+    public float healFloatSpeed = 1.5f;  // Velocidad a la que flota hacia arriba
+    public float healLifetime = 1f;      // Duración del efecto antes de desaparecer
 
     private SpriteRenderer spriteRenderer;
     private bool isOpen = false;
@@ -18,6 +25,7 @@ public class Chest : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        // Muestra el sprite cerrado al inicio
         if (spriteRenderer != null && closedSprite != null)
             spriteRenderer.sprite = closedSprite;
         if (interactPrompt != null)
@@ -26,6 +34,7 @@ public class Chest : MonoBehaviour
 
     void Update()
     {
+        // Sigue al cofre en pantalla (para el prompt [E])
         if (playerInRange && interactPrompt != null)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(
@@ -34,6 +43,7 @@ public class Chest : MonoBehaviour
             interactPrompt.transform.position = screenPos;
         }
 
+        // Abre al pulsar E si el jugador está cerca y no está ya abierto
         if (playerInRange && !isOpen && Input.GetKeyDown(KeyCode.E))
             Open();
     }
@@ -54,6 +64,7 @@ public class Chest : MonoBehaviour
             interactPrompt.SetActive(false);
     }
 
+    // Abre el cofre: cambia sprite, cura, suena y muestra efecto
     void Open()
     {
         isOpen = true;
@@ -63,29 +74,33 @@ public class Chest : MonoBehaviour
         if (AudioManager.Instance != null && openSound != null)
             AudioManager.Instance.PlaySFX(openSound);
 
-        PlayerHealth ph = FindObjectOfType<PlayerHealth>();
+        // Cura al jugador a toda la vida
+        PlayerHealth ph = FindFirstObjectByType<PlayerHealth>();
         if (ph != null) ph.HealFull();
 
         if (interactPrompt != null)
             interactPrompt.SetActive(false);
 
+        // Efecto visual de curación (+1UP flotante)
         if (healSprite != null)
             StartCoroutine(SpawnHealEffect());
     }
 
+    // Crea un sprite que flota hacia arriba y se desvanece
     IEnumerator SpawnHealEffect()
     {
         GameObject healGO = new GameObject("HealEffect");
         healGO.transform.position = transform.position + new Vector3(0, 1f, 0);
         SpriteRenderer sr = healGO.AddComponent<SpriteRenderer>();
         sr.sprite = healSprite;
-        sr.sortingOrder = 10;
+        sr.sortingOrder = 10; // Encima de casi todo
 
         float elapsed = 0f;
         while (elapsed < healLifetime)
         {
             elapsed += Time.deltaTime;
             healGO.transform.position += Vector3.up * healFloatSpeed * Time.deltaTime;
+            // Desvanece gradualmente
             Color c = sr.color;
             c.a = Mathf.Lerp(1f, 0f, elapsed / healLifetime);
             sr.color = c;
